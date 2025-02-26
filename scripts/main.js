@@ -9,8 +9,8 @@ Hooks.on("ready", () => {
 Hooks.on("preCreateActor", async (actor, data, options, userId) => {
     if (actor.type === "character") {
         let updates = {};
-        // Проверяем, если у персонажа нет поля маны
-        if (!getProperty(data, "system.attributes.mana")) {
+        // Исправляем getProperty на правильный метод
+        if (!foundry.utils.getProperty(data, "system.attributes.mana")) {
             updates["system.attributes.mana"] = { value: 10, max: 10 };
         }
         if (Object.keys(updates).length > 0) {
@@ -21,12 +21,14 @@ Hooks.on("preCreateActor", async (actor, data, options, userId) => {
 });
 
 // Добавляем визуальную шкалу маны в интерфейс персонажа
-Hooks.on("renderActorSheet", (app, html, data) => {
+Hooks.on("renderActorSheet", async (app, html, data) => {
     if (app.actor.type !== "character") return;
 
     // Проверяем, есть ли у персонажа мана
     if (!app.actor.system.attributes.mana) {
-        app.actor.update({
+        // Обновляем данные персонажа с указанием _id
+        await app.actor.update({
+            "_id": app.actor.id,  // Указываем _id актера
             "system.attributes.mana": { value: 10, max: 10 }
         });
     }

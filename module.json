@@ -2,7 +2,7 @@
   "name": "mana-system",
   "title": "Система маны",
   "description": "Добавляет систему маны в Foundry VTT",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "authors": [
     {
       "name": "Echo",
