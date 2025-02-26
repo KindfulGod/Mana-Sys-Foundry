@@ -10,8 +10,8 @@
       "email": "your-email@example.com"
     }
   ],
-  "minimumCoreVersion": "10",
-  "compatibleCoreVersion": "11",
+  "minimumCoreVersion": "12",
+  "compatibleCoreVersion": "12",
   "system": "dnd5e",
   "esmodules": ["scripts/main.js"],
   "styles": ["styles/main.css"],
