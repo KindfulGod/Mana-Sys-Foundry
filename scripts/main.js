@@ -6,14 +6,16 @@ Hooks.on("ready", () => {
 });
 
 // Добавляем поле "mana" ко всем новым персонажам
-Hooks.on("preCreateActor", (actor, data, options, userId) => {
+Hooks.on("preCreateActor", async (actor, data, options, userId) => {
     if (actor.type === "character") {
         let updates = {};
+        // Проверяем, если у персонажа нет поля маны
         if (!getProperty(data, "system.attributes.mana")) {
             updates["system.attributes.mana"] = { value: 10, max: 10 };
         }
         if (Object.keys(updates).length > 0) {
-            actor.update(updates);
+            // Обновляем актера перед его созданием
+            await actor.update(updates);
         }
     }
 });
